@@ -797,20 +797,23 @@ if (!String.prototype.startsWith) {
         if ($errorMessageText.length > 0) $errorMessageText.hide();
 
         var _submitHandler = function() {
-
+            var btnsubmit = document.getElementById('btnsubmit');
+            document.getElementById('loading').style.display = 'block';
+            btnsubmit.setAttribute("disabled");
             $.ajax({
                 url: "https://script.google.com/macros/s/AKfycbyaYKFXpF2HTFl-EgEQXhLHXSSrlUA9kSO4UULTcvxGAKp5z_ksbmjnNp16nczD8NSJCg/exec",
                 data: $("#register-form").serialize(),
                 method: "post",
                 success: function(response) {
                     alert("Success!");
-
+                    document.getElementById('loading').style.display = 'none';
 
 
                 },
                 error: function(err) {
                     alert("Something Error! Please try again. ");
-
+                    document.getElementById('loading').style.display = 'none';
+                    btnsubmit.setAttribute("disabled", "false");
                 }
             });
         };

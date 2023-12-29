@@ -44,6 +44,18 @@
     <link rel="alternate" href="/fr/home.html" hreflang="en-us" />
     <link rel="alternate" href="/pt/home.html" hreflang="en-us" />
     <link rel="alternate" href="/es/home.html" hreflang="en-us" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-08HTDKPTN6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-08HTDKPTN6');
+    </script>
     <title>Avery Dennison - Commercial Apprentice Program 2024 | Avery Dennison Vietnam</title>
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -278,7 +290,6 @@
                                                     <option value="Male">Male</option>
                                                     <option value="Female">Female</option>
                                                     <option value="Others">Others</option>
-                                                    <option value="Not to disclose">Not to disclose</option>
                                                 </select>
                                                 <div class="invalid-feedback"> Please select. </div>
                                             </div>
@@ -303,13 +314,15 @@
                                                 <option selected disabled value="">Choose your city</option>
                                                 <option value="Ho Chi Minh City">Ho Chi Minh City</option>
                                                 <option value="Ha Noi City">Ha Noi City</option>
-                                                <option value="Other">Others</option>
+                                                <option value="Da Nang City">Da Nang City</option>
+                                                <option value="Oversea">Oversea</option>
+                                                <option value="Other">Other provinces</option>
                                             </select>
                                             <div class="invalid-feedback"> Please select. </div>
                                             <input type="text" id="other-location" name="other-location" class="mt-3 form-control hidden" placeholder="Enter your city">
                                         </div>
                                         <div class="col-md-12 mb-3 right-pd">
-                                            <label class="form-label">7. If you pass CAP 2024 then you will be ready to work at: <strong style="color: red;">*</strong></label>
+                                            <label class="form-label">7. If you pass CAP 2024 then you will be ready to work at (You can tick more than one answer): <strong style="color: red;">*</strong></label>
                                             <div class="form-check">
                                                 <input class="form-check-input" name="relocate1" type="checkbox" id="hcmbox" value="Ho Chi Minh city">
                                                 <label class="form-check-label" for="hcmbox">Ho Chi Minh City</label>
@@ -337,6 +350,9 @@
                                                     <option value="University of Languages and International Studies | VNU-ULIS">University of Languages and International Studies | VNU-ULIS</option>
                                                     <option value="Foreign Trade University Ha Noi | FTU">Foreign Trade University Ha Noi | FTU</option>
                                                     <option value="Foreign Trade University Ho Chi Minh | FTU2">Foreign Trade University Ho Chi Minh | FTU2</option>
+                                                    <option value="International University | IU-VNUHCM">International University | IU-VNUHCM</option>
+                                                    <option value="University of Economics Ho Chi Minh City | UEH">University of Economics Ho Chi Minh City | UEH</option>
+                                                    <option value="HCMC University of Foreign Languages and Information Technology | HUFLIT">HCMC University of Foreign Languages and Information Technology | HUFLIT</option>
                                                     <option value="Thuyloi University | TLU">Thuyloi University | TLU</option>
                                                     <option value="University of Social Sciences and Humanities | USSH-VNUHCM ">University of Social Sciences and Humanities | USSH-VNUHCM</option>
                                                     <option value="Van Lang University | VLU">HCMCOU - Ho Chi Minh City Open University</option>
@@ -476,8 +492,11 @@
 
                                         </div>
                                         <div class="submit button parbase mt-4">
-                                            <input type="submit" class="btn red" value="submit" />
+                                            <input id="btnsubmit" type="submit" class="btn red" value="submit" />
 
+                                        </div>
+                                        <div id="loading" style="display: none; ">
+                                            <p>Đang xử lý...</p>
                                         </div>
                                     </form>
                                     <div id="option-submit" class="hidden" data-submit-ajax="false"></div>
