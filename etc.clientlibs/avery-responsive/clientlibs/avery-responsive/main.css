@@ -83,8 +83,9 @@ body {
 .avd td,
 .avd th {
     color: #636363;
-    font-size: 13px;
-    line-height: 16px;
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 300;
     margin-top: 16px;
     margin-bottom: 16px;
 }
@@ -99,8 +100,9 @@ body {
     .avd ol,
     .avd td,
     .avd th {
-        font-size: 14px;
-        line-height: 18px;
+        font-size: 18px;
+        line-height: 24px;
+        font-weight: 300;
         margin-top: 18px;
         margin-bottom: 18px;
     }
@@ -9659,4 +9661,8 @@ footer .cookie-placeholder {
 
 .right-pd {
     padding-right: calc(var(--bs-gutter-x) + var(--bs-gutter-x)/2);
+}
+
+.section-title1 h1 {
+    font-size: 44px !important;
 }

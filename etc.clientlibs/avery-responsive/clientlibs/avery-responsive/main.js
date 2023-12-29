@@ -718,6 +718,67 @@ if (!String.prototype.startsWith) {
     });
 
 })(jQuery, this);;
+
+(function() {
+
+    console.log('connect to firebase');
+
+    // Initialize Firebase
+    var firebaseConfig = {
+
+        apiKey: "AIzaSyDbYob_QjKN8M_umN7Ct9OdkEH08y7RF2w",
+        authDomain: "ad-form-94890.firebaseapp.com",
+        databaseURL: "https://ad-form-94890.firebaseio.com",
+        projectId: "ad-form-94890",
+        storageBucket: "ad-form-94890.appspot.com",
+        messagingSenderId: "458557667857",
+        appId: "1:458557667857:web:a50446fc2f126bf6a20fb0"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    var database = firebase.database();
+
+
+    /**
+     * Initializes the app.
+     */
+    var initApp = function() {
+
+        const fileButton = document.getElementById('formFile');
+        const inputfile = document.getElementById('cvname');
+        if (!!fileButton) {
+
+            fileButton.addEventListener('change', function(e) {
+
+
+
+                var fileName = e.target.files[0].name;
+                inputfile.value = fileName;
+                uploadFile(e.target.files[0]);
+
+            });
+        }
+
+
+    };
+
+    function uploadFile(file) {
+
+
+        var metadata = {
+
+            contentType: file.type,
+        };
+        var uploadTask = firebase.storage().ref('cv/' + file.name).put(file, metadata);
+
+
+    }
+
+
+    window.addEventListener('load', initApp);
+
+}());
+
 (function($, window) {
 
     /*jshint unused:false*/
@@ -737,32 +798,21 @@ if (!String.prototype.startsWith) {
 
         var _submitHandler = function() {
 
-            var formUrl = $form.attr('action'),
-                formData = $form.serialize(),
-                formMethod = $form.attr('method');
+            $.ajax({
+                url: "https://script.google.com/macros/s/AKfycbyaYKFXpF2HTFl-EgEQXhLHXSSrlUA9kSO4UULTcvxGAKp5z_ksbmjnNp16nczD8NSJCg/exec",
+                data: $("#register-form").serialize(),
+                method: "post",
+                success: function(response) {
+                    alert("Success!");
 
-            if ((typeof submitAjax !== 'undefined') && ('true' === submitAjax)) {
-                $.ajax({
-                    type: formMethod,
-                    url: formUrl,
-                    data: formData
-                }).success(function(response) {
-                    if (redirectOnSuccess) {
-                        var redirect_url = $form.find('input[name="retURL"]').val();
-                        window.location.href = redirect_url + '.html';
-                    } else {
-                        $modal.modal('show');
-                    }
-                    _toggleSubmit($submitButton);
-                }).fail(function(jqXHR) {
-                    window.console.log("form submission fail");
-                }).always(function() {
 
-                }); // end Ajax call
-            } else {
-                $form.unbind().submit();
-                _toggleSubmit($submitButton);
-            }
+
+                },
+                error: function(err) {
+                    alert("Something Error! Please try again. ");
+
+                }
+            });
         };
 
         var _toggleSubmit = function($submitButton) {
@@ -870,7 +920,10 @@ if (!String.prototype.startsWith) {
 })(jQuery, this);;
 /* jshint ignore:start */
 // Code here will be ignored by JSHint.
+// $("#register-form").submit((e) => {
+//     e.preventDefault()
 
+// });
 (function($, window) {
 
     var hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints;
@@ -2261,7 +2314,15 @@ var modalAnimation = 250; //.25 seconds in and out
 var currentModalID = "";
 var auto;
 
+$('#gpa-scale-4').on('click', function() {
+    document.getElementById('gpa-score').innerHTML = `<label for="gpa" class="form-label">12. Your GPA: <strong style="color: red;">*</strong></label>
+<input type="number" id="gpa" name="gpa" class="form-control" required min="0" max="4">`
+})
 
+$('#gpa-scale-10').on('click', function() {
+    document.getElementById('gpa-score').innerHTML = `<label for="gpa" class="form-label">12. Your GPA: <strong style="color: red;">*</strong></label>
+<input type="number" id="gpa" name="gpa" class="form-control" required min="0" max="10">`
+})
 
 //Primary modal display and switching function. Will work modal to modal. example onclick="javascript:showModal('#actualModalID');"
 function showModal(id, id2) {
@@ -2451,16 +2512,6 @@ function handleDeeplink() {
     }
 
 } // END DEEPLINK AND ANCHOR
-$('#gpa-scale-4').on('click', function() {
-    document.getElementById('gpa').innerHTML = `<label for="gpa-4" class="form-label">12. Your GPA: <strong style="color: red;">*</strong></label>
-<input type="number" id="gpa-4" class="form-control" required min="0" max="4">`
-})
-
-$('#gpa-scale-10').on('click', function() {
-    document.getElementById('gpa').innerHTML = `<label for="gpa-10" class="form-label">12. Your GPA: <strong style="color: red;">*</strong></label>
-<input type="number" id="gpa-10" class="form-control" required min="0" max="10">`
-})
-
 
 function checkOfficesDropdown() {
     var outboundString;

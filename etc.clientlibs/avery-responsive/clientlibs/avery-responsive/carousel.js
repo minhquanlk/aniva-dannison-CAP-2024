@@ -1,119 +1,3 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
-import { getDatabase, ref, push, set, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-import { getStorage, ref as ref_storage, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
-
-const firebaseConfig = {
-
-    appId: "1:980484586495:web:ec712f4776de25a0ecc5ca",
-    apiKey: "AIzaSyDbYob_QjKN8M_umN7Ct9OdkEH08y7RF2w",
-    authDomain: "ad-form-94890.firebaseapp.com",
-    databaseURL: "https://ad-form-94890-default-rtdb.asia-southeast1.firebasedatabase.app/",
-    projectId: "ad-form-94890",
-    storageBucket: "ad-form-94890.appspot.com",
-    messagingSenderId: "458557667857",
-    appId: "1:458557667857:web:a50446fc2f126bf6a20fb0",
-    measurementId: "G-69E4LV4Y4W"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const database = ref(getDatabase(app), 'registration/');
-const storage = getStorage(app);
-
-
-
-function submitForm() {
-    $('#loading').css('display', 'block');
-    $('#submit').css('display', 'none');
-    $('.error-toast').css('display', 'none');
-    var email = document.querySelector('#email').value;
-    get(database).then((snapshot) => {
-
-        var isDuplicate = false;
-        snapshot.forEach((childSnapShot) => {
-            var childData = childSnapShot.val();
-            if (childData.email.trim() === email.trim()) {
-                isDuplicate = true;
-            }
-        });
-        if (!isDuplicate) {
-            var file = document.getElementById('formFile').files[0];
-            var fullname = document.querySelector("#full-name").value;
-            var data = new FormData()
-            data.append('cv', file)
-            fetch('/uploadCV', {
-                    method: 'POST',
-                    body: data,
-                }).then(
-                    response => response.json() // if the response is a JSON object
-                )
-                .then(
-                    (downloadUrl) => {
-                        if (downloadUrl !== null && downloadUrl !== undefined) {
-                            var yearOfBirth = document.querySelector("#year-of-birth").value;
-                            var gender = document.querySelector("#gender").value;
-                            var phone = document.querySelector("#phone-number").value;
-                            var email = document.querySelector("#email").value;
-                            var gender = document.querySelector("#gender").value;
-                            var location = $('#location').find(':selected').val()
-                            var university = $('#university').find(':selected').val()
-                            if (university === 'Other') {
-                                university = $("#other-university").val()
-                            }
-                            var major = $('#major').val()
-                            var gpaScale = $('input[name="gpa-scale"]:checked').val();
-                            var gpa = gpaScale === '4' ? $('#gpa-4').val() : $('#gpa-10').val()
-                            var experienceLevel = $('input[name="experience"]:checked').val();
-                            var startTime = $('#start-time').val()
-                            var firstFunction = $('#first-function').find(':selected').val()
-                            var secondFunction = $('#second-function').find(':selected').val()
-                            var introduce = $('#introduce').val()
-                            var applyTime = Date.now();
-                            var newApply = push(database);
-                            set(newApply, {
-                                fullname,
-                                yearOfBirth,
-                                gender,
-                                phone,
-                                email,
-                                gender,
-                                location,
-                                university,
-                                major,
-                                gpaScale,
-                                gpa,
-                                experienceLevel,
-                                startTime,
-                                firstFunction,
-                                secondFunction,
-                                introduce,
-                                downloadUrl,
-                                applyTime
-                            }).then(() => {
-                                $('#thanks').css('display', 'block');
-                                $('#register-form').css('display', 'none');
-                                $('.error-toast').css('display', 'none');
-                                fetch('/sendEmail', {
-                                    method: 'POST',
-                                    body: JSON.stringify({ email: [email] }),
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    }
-                                })
-                            })
-                        }
-                    }
-                )
-        } else {
-            $('#loading').css('display', 'none');
-            $('#submit').css('display', 'block');
-            $('.error-toast').css('display', 'block');
-        }
-
-    })
-
-}
 // initial plugin on ready
 if ($(".homepageFeature").length) {
 
@@ -232,18 +116,12 @@ if ($(".homepageFeature").length) {
             //Gathering Data
             h3index = $(this).index();
 
-            if (h3index == 0) {
-                positionToMove = 0;
-                imgSwap = ".hpcMainImg1";
-            }
-            if ((h3index == 1) || (h3index == 2)) {
-                positionToMove = 240;
-                imgSwap = ".hpcMainImg2";
-            }
-            if (h3index >= 3) {
-                positionToMove = 480;
-                imgSwap = ".hpcMainImg3";
-            }
+            if (h3index == 0) { positionToMove = 0;
+                imgSwap = ".hpcMainImg1"; }
+            if ((h3index == 1) || (h3index == 2)) { positionToMove = 240;
+                imgSwap = ".hpcMainImg2"; }
+            if (h3index >= 3) { positionToMove = 480;
+                imgSwap = ".hpcMainImg3"; }
             var targetImage = $(this).parents(".homepageFeature").children(".imgSwap").children(imgSwap);
 
             // Check if hidden param of video is true to show the overlay of the play button image
