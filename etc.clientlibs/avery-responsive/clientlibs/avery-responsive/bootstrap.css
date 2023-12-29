@@ -15200,7 +15200,8 @@ a.avd .bg-danger:focus {
     display: inline-block;
     max-width: 100%;
     margin-bottom: 5px;
-    font-weight: bold;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .avd input[type="search"] {
