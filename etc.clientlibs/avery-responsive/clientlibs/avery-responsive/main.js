@@ -798,12 +798,13 @@ if (!String.prototype.startsWith) {
 
         var _submitHandler = function() {
             document.getElementById('loading').style.display = 'block';
+            $submitButton.attr('disabled', 'true');
             $.ajax({
                 url: "https://script.google.com/macros/s/AKfycbyaYKFXpF2HTFl-EgEQXhLHXSSrlUA9kSO4UULTcvxGAKp5z_ksbmjnNp16nczD8NSJCg/exec",
                 data: $("#register-form").serialize(),
                 method: "post",
                 success: function(response) {
-                    alert("Success!");
+                    alert("Thank you for your interest and application for CAP 2024!");
                     document.getElementById('loading').style.display = 'none';
 
 
@@ -811,7 +812,7 @@ if (!String.prototype.startsWith) {
                 error: function(err) {
                     alert("Something Error! Please try again. ");
                     document.getElementById('loading').style.display = 'none';
-
+                    $submitButton.attr('disabled', 'false');
                 }
             });
         };
